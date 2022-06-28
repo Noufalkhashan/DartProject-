@@ -4,8 +4,8 @@ import 'dart:io';
 import 'package:project/project.dart' as project;
 
 abstract class Author {
-  String? name;
-  Author({this.name});
+  static String? name;
+  Author({name});
 }
 
 class Book extends Author {
@@ -78,7 +78,7 @@ void main(List<String> arguments) {
     choice = int.parse(stdin.readLineSync()!);
     switch (choice) {
       case 1:
-        AddBook();
+        AddBook1();
         break;
 
       case 2:
@@ -95,6 +95,9 @@ void main(List<String> arguments) {
         break;
       case 6:
         printList();
+        break;
+      case 7:
+        print("Good Bay ");
         break;
     }
   } while (choice != 7);
@@ -133,9 +136,9 @@ EditList() {
       print("invalid input");
       break;
   }
-  print("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_");
+  print("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_\n");
   print("Book list After Editing");
-  print("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_");
+  print("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_\n");
   printList();
 }
 
@@ -287,8 +290,10 @@ Bill() {
       print("            Maha & Nouf BookStore       ");
       print("${DateTime.now()}     Riyadh,PNU");
       print("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_");
+      print("     Name                   Price");
       for (int i = 0; i < Buying.length; i++) {
-        print("${count1++}.${Buying[i]}\n");
+        print(
+            "${count1++}.${Buying[i]["Name"]}               ${Buying[i]["Price"]} \n");
       }
 
       print("Total Price: $totalPrise");
@@ -296,4 +301,43 @@ Bill() {
       print("            Thank you for visit!        ");
     }
   } while (choice != 3);
+}
+
+AddBook1() {
+  print("Please enter ID: ");
+  String id = stdin.readLineSync()!;
+
+  bool? TheResult;
+
+  for (var i = 0; i < books.length; i++) {
+    if (books[i]["ID"] == id) {
+      print("      Sorry \n This ID is already used ");
+      return TheResult = false;
+    }
+  }
+  ;
+
+  while (TheResult != false) {
+    print("Please enter Book name: ");
+    String bname = stdin.readLineSync()!;
+    print("Please enter author name: ");
+    String Aname = stdin.readLineSync()!;
+    print("Please enter Price: ");
+    int pprice = int.parse(stdin.readLineSync()!);
+    print("Please enter Quantity");
+    int qquan = int.parse(stdin.readLineSync()!);
+
+    books.add({
+      "ID": id,
+      "Name": bname,
+      "Author": Aname,
+      "Price": pprice,
+      "Quantity": qquan
+    });
+    print("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_\n");
+    print("The Book List After add the new Book: \n");
+    printList();
+
+    TheResult = false;
+  }
 }
